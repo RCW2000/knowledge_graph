@@ -5,6 +5,14 @@ sys.path.append("..")
 import json
 import ollama.client as client
 
+#beam try
+import transformers
+from transformers import BloomForCausalLM
+from transformers import BloomTokenizerFast
+import torch
+
+model = BloomForCausalLM.from_pretrained("bigscience/bloom-1b3")
+tokenizer = BloomTokenizerFast.from_pretrained("bigscience/bloom-1b3")
 
 def extractConcepts(prompt: str, metadata={}, model="mistral-openorca:latest"):
     SYS_PROMPT = (
@@ -22,7 +30,13 @@ def extractConcepts(prompt: str, metadata={}, model="mistral-openorca:latest"):
         "{ }, \n"
         "]\n"
     )
-    response, _ = client.generate(model_name=model, system=SYS_PROMPT, prompt=prompt)
+    bprompt="Using this: "+prompt+"/n"+SYS_PROMPT
+    inputs=tokenizer(bprompt, return_tensors="pt")
+    result_size=100
+    reponse=tokenizer.decode(model.generate(inputs["input_ids"], 
+                       max_length=result_size
+                      )[0])
+    #response, _ = client.generate(model_name=model, system=SYS_PROMPT, prompt=prompt)
     try:
         result = json.loads(response)
         result = [dict(item, **metadata) for item in result]
@@ -63,7 +77,13 @@ def graphPrompt(input: str, metadata={}, model="mistral-openorca:latest"):
     )
 
     USER_PROMPT = f"context: ```{input}``` \n\n output: "
-    response, _ = client.generate(model_name=model, system=SYS_PROMPT, prompt=USER_PROMPT)
+    bprompt="Using this: "+USER_PROMPT+"/n"+SYS_PROMPT
+    inputs=tokenizer(bprompt, return_tensors="pt")
+    result_size=100
+    reponse=tokenizer.decode(model.generate(inputs["input_ids"], 
+                       max_length=result_size
+                      )[0])
+    #response, _ = client.generate(model_name=model, system=SYS_PROMPT, prompt=USER_PROMPT)
     try:
         result = json.loads(response)
         result = [dict(item, **metadata) for item in result]
