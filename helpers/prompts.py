@@ -83,6 +83,7 @@ def graphPrompt(input: str, metadata={}, model="mistral-openorca:latest"):
     response=tokenizer.decode(model.generate(inputs["input_ids"], 
                        max_length=result_size
                       )[0])
+    print(response)
     #response, _ = client.generate(model_name=model, system=SYS_PROMPT, prompt=USER_PROMPT)
     try:
         result = json.loads(response)
