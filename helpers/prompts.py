@@ -1,5 +1,3 @@
-import sys
-sys.path.append("..")
 import json
 #beam try
 import transformers
@@ -10,7 +8,7 @@ import torch
 bmodel = BloomForCausalLM.from_pretrained("bigscience/bloom-1b3")
 tokenizer = BloomTokenizerFast.from_pretrained("bigscience/bloom-1b3")
 
-def extractConcepts(prompt: str):
+def extractConcepts(prompt: str, metadata):
     SYS_PROMPT = (
         "Your task is extract the key concepts (and non personal entities) mentioned in the given context. "
         "Extract only the most important and atomistic concepts, if  needed break the concepts down to the simpler concepts."
@@ -41,7 +39,7 @@ def extractConcepts(prompt: str):
     return result
 
 
-def graphPrompt(input: str):
+def graphPrompt(input: str,metadata):
     # model_info = client.show(model_name=model)
     # print( chalk.blue(model_info))
 
