@@ -54,7 +54,7 @@ def extractConcepts(prompt: str, metadata):
     return result
 
 
-def graphPrompt(input: str,metadata):
+def graphPrompt(input: str, metadata:{}):
     print("hello")
 
     SYS_PROMPT = (
