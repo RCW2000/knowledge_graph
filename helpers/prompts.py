@@ -7,7 +7,7 @@ import torch
 pipe = pipeline(
     "text-generation",
     model="HuggingFaceH4/zephyr-7b-gemma-v0.1",
-    #device_map="auto",
+    device_map="auto",
     torch_dtype=torch.bfloat16,
 )
 
