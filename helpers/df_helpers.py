@@ -47,10 +47,10 @@ def concepts2Df(concepts_list) -> pd.DataFrame:
     return concepts_dataframe
 
 
-def df2Graph(dataframe: pd.DataFrame, model=None) -> list:
+def df2Graph(dataframe: pd.DataFrame) -> list:
     # dataframe.reset_index(inplace=True)
     results = dataframe.apply(
-        lambda row: graphPrompt(row.text, {"chunk_id": row.chunk_id}, model), axis=1
+        lambda row: graphPrompt(row.text, {"chunk_id": row.chunk_id}), axis=1
     )
     # invalid json results in NaN
     results = results.dropna()
