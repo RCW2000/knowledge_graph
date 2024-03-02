@@ -1,10 +1,6 @@
 import sys
-from yachalk import chalk
 sys.path.append("..")
-
 import json
-#import ollama.client as client
-
 #beam try
 import transformers
 from transformers import BloomForCausalLM
@@ -14,7 +10,7 @@ import torch
 bmodel = BloomForCausalLM.from_pretrained("bigscience/bloom-1b3")
 tokenizer = BloomTokenizerFast.from_pretrained("bigscience/bloom-1b3")
 
-def extractConcepts(prompt: str, metadata={}, model="mistral-openorca:latest"):
+def extractConcepts(prompt: str):
     SYS_PROMPT = (
         "Your task is extract the key concepts (and non personal entities) mentioned in the given context. "
         "Extract only the most important and atomistic concepts, if  needed break the concepts down to the simpler concepts."
@@ -36,7 +32,6 @@ def extractConcepts(prompt: str, metadata={}, model="mistral-openorca:latest"):
     response=tokenizer.decode(bmodel.generate(inputs["input_ids"], 
                        max_length=result_size
                       )[0])
-    #response, _ = client.generate(model_name=model, system=SYS_PROMPT, prompt=prompt)
     try:
         result = json.loads(response)
         result = [dict(item, **metadata) for item in result]
@@ -46,10 +41,7 @@ def extractConcepts(prompt: str, metadata={}, model="mistral-openorca:latest"):
     return result
 
 
-def graphPrompt(input: str, metadata={}, model="mistral-openorca:latest"):
-    if model == None:
-        model = "mistral-openorca:latest"
-
+def graphPrompt(input: str):
     # model_info = client.show(model_name=model)
     # print( chalk.blue(model_info))
 
@@ -84,7 +76,6 @@ def graphPrompt(input: str, metadata={}, model="mistral-openorca:latest"):
                        max_length=result_size
                       )[0])
     print(response)
-    #response, _ = client.generate(model_name=model, system=SYS_PROMPT, prompt=USER_PROMPT)
     try:
         result = json.loads(response)
         result = [dict(item, **metadata) for item in result]
