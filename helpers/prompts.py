@@ -1,12 +1,10 @@
 import json
 #beam try
 import transformers
-from transformers import BloomForCausalLM
-from transformers import BloomTokenizerFast
+from transformers import Bpipeline
 import torch
 
-bmodel = BloomForCausalLM.from_pretrained("bigscience/bloom-1b3")
-tokenizer = BloomTokenizerFast.from_pretrained("bigscience/bloom-1b3")
+bmodel = pipeline("text-generation")
 
 def extractConcepts(prompt: str, metadata):
     SYS_PROMPT = (
@@ -25,11 +23,7 @@ def extractConcepts(prompt: str, metadata):
         "]\n"
     )
     bprompt="Using this: "+prompt+"/n"+SYS_PROMPT
-    inputs=tokenizer(bprompt, return_tensors="pt")
-    result_size=100
-    response=tokenizer.decode(bmodel.generate(inputs["input_ids"], 
-                       max_length=result_size
-                      )[0])
+    response=bmodel(bprompt)
     try:
         result = json.loads(response)
         result = [dict(item, **metadata) for item in result]
@@ -67,11 +61,7 @@ def graphPrompt(input: str,metadata):
 
     USER_PROMPT = f"context: ```{input}``` \n\n output: "
     bprompt="Using this: "+USER_PROMPT+"/n"+SYS_PROMPT
-    inputs=tokenizer(bprompt, return_tensors="pt")
-    result_size=100
-    response=tokenizer.decode(bmodel.generate(inputs["input_ids"], 
-                       max_length=result_size
-                      )[0])
+    response=bmodel(bprompt)
     print(response)
     try:
         result = json.loads(response)
