@@ -2,14 +2,14 @@ import os
 import json
 import requests
 
-BASE_URL = os.environ.get('OLLAMA_HOST', 'http://localhost:11434')
+#BASE_URL = os.environ.get('OLLAMA_HOST', 'http://localhost:11434')
 
 # Generate a response for a given prompt with a provided model. This is a streaming endpoint, so will be a series of responses.
 # The final response object will include statistics and additional data from the request. Use the callback function to override
 # the default handler.
 def generate(model_name, prompt, system=None, template=None, context=None, options=None, callback=None):
     try:
-        url = f"{BASE_URL}/api/generate"
+        url = "http://localhost:11434/api/generate"
         payload = {
             "model": model_name, 
             "prompt": prompt, 
