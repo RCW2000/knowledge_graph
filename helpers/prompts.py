@@ -40,8 +40,7 @@ def extractConcepts(prompt: str, metadata):
 
 
 def graphPrompt(input: str,metadata):
-    # model_info = client.show(model_name=model)
-    # print( chalk.blue(model_info))
+    print("hello")
 
     SYS_PROMPT = (
         "You are a network graph maker who extracts terms and their relations from a given context. "
