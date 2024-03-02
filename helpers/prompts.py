@@ -33,7 +33,7 @@ def extractConcepts(prompt: str, metadata={}, model="mistral-openorca:latest"):
     bprompt="Using this: "+prompt+"/n"+SYS_PROMPT
     inputs=tokenizer(bprompt, return_tensors="pt")
     result_size=100
-    reponse=tokenizer.decode(model.generate(inputs["input_ids"], 
+    response=tokenizer.decode(model.generate(inputs["input_ids"], 
                        max_length=result_size
                       )[0])
     #response, _ = client.generate(model_name=model, system=SYS_PROMPT, prompt=prompt)
@@ -80,7 +80,7 @@ def graphPrompt(input: str, metadata={}, model="mistral-openorca:latest"):
     bprompt="Using this: "+USER_PROMPT+"/n"+SYS_PROMPT
     inputs=tokenizer(bprompt, return_tensors="pt")
     result_size=100
-    reponse=tokenizer.decode(model.generate(inputs["input_ids"], 
+    response=tokenizer.decode(model.generate(inputs["input_ids"], 
                        max_length=result_size
                       )[0])
     #response, _ = client.generate(model_name=model, system=SYS_PROMPT, prompt=USER_PROMPT)
