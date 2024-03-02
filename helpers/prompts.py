@@ -3,7 +3,7 @@ from yachalk import chalk
 sys.path.append("..")
 
 import json
-import ollama.client as client
+#import ollama.client as client
 
 #beam try
 import transformers
