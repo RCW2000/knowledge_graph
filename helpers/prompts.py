@@ -11,7 +11,7 @@ from transformers import BloomForCausalLM
 from transformers import BloomTokenizerFast
 import torch
 
-model = BloomForCausalLM.from_pretrained("bigscience/bloom-1b3")
+bmodel = BloomForCausalLM.from_pretrained("bigscience/bloom-1b3")
 tokenizer = BloomTokenizerFast.from_pretrained("bigscience/bloom-1b3")
 
 def extractConcepts(prompt: str, metadata={}, model="mistral-openorca:latest"):
@@ -33,7 +33,7 @@ def extractConcepts(prompt: str, metadata={}, model="mistral-openorca:latest"):
     bprompt="Using this: "+prompt+"/n"+SYS_PROMPT
     inputs=tokenizer(bprompt, return_tensors="pt")
     result_size=100
-    response=tokenizer.decode(model.generate(inputs["input_ids"], 
+    response=tokenizer.decode(bmodel.generate(inputs["input_ids"], 
                        max_length=result_size
                       )[0])
     #response, _ = client.generate(model_name=model, system=SYS_PROMPT, prompt=prompt)
@@ -80,7 +80,7 @@ def graphPrompt(input: str, metadata={}, model="mistral-openorca:latest"):
     bprompt="Using this: "+USER_PROMPT+"/n"+SYS_PROMPT
     inputs=tokenizer(bprompt, return_tensors="pt")
     result_size=100
-    response=tokenizer.decode(model.generate(inputs["input_ids"], 
+    response=tokenizer.decode(bmodel.generate(inputs["input_ids"], 
                        max_length=result_size
                       )[0])
     print(response)
