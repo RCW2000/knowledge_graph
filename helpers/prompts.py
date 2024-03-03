@@ -95,7 +95,7 @@ def graphPrompt(input: str, metadata:{}):
     ]
     outputs = pipe(
     messages,
-    max_new_tokens=128,
+    max_new_tokens=512,
     do_sample=True,
     temperature=0.7,
     top_k=50,
@@ -104,12 +104,9 @@ def graphPrompt(input: str, metadata:{}):
     )
     out=outputs[0]["generated_text"][-1]["content"]
     response="[\n"+out.split("[\n")[1].split("]")[0]+"]"
-    print(response)
     try:
         result = json.loads(response)
-        print("result is issue")
         result = [dict(item, **metadata) for item in result]
-        print("result dict is issue")
     except:
         print("\n\nERROR ### Here is the buggy response: ", response, "\n\n")
         result = None
