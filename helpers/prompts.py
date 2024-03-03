@@ -26,6 +26,8 @@ def extractConcepts(prompt: str, metadata):
         "   }, \n"
         "{ }, \n"
         "]\n"
+        "only output the json, include no notes or introductory statements"
+        "The entire output should be readable by a program that can interpret json"
     )
     bprompt="Using this: "+prompt+"/n"+SYS_PROMPT
     messages = [
@@ -78,6 +80,9 @@ def graphPrompt(input: str, metadata:{}):
         '       "edge": "relationship between the two concepts, node_1 and node_2 in one or two sentences"\n'
         "   }, {...}\n"
         "]"
+        "try to keep edges as short sumerized statements or single words"
+        "only output the json, include no notes or introductory statements"
+        "The entire output should be readable by a program that can interpret json"
     )
 
     USER_PROMPT = f"context: ```{input}``` \n\n output: "
