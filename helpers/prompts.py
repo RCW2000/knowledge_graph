@@ -80,6 +80,7 @@ def graphPrompt(input: str, metadata:{}):
         '       "edge": "relationship between the two concepts, node_1 and node_2 in one or two sentences"\n'
         "   }, {...}\n"
         "]"
+        "try to keep the edges consise, but do not sacrifice relavent information"
         "only output the json, include no notes or introductory statements"
         "The entire output should be readable by a program that can interpret json"
     )
