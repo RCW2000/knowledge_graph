@@ -91,7 +91,7 @@ def graphPrompt(input: str, metadata:{}):
     ]
     outputs = pipe(
     messages,
-    max_new_tokens=128,
+    max_new_tokens=2048,
     do_sample=True,
     temperature=0.7,
     top_k=50,
