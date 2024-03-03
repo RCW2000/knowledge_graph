@@ -102,7 +102,9 @@ def graphPrompt(input: str, metadata:{}):
     print(response)
     try:
         result = json.loads(response)
+        print("result is issue")
         result = [dict(item, **metadata) for item in result]
+        print("result dict is issue")
     except:
         print("\n\nERROR ### Here is the buggy response: ", response, "\n\n")
         result = None
