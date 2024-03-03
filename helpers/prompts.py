@@ -80,7 +80,6 @@ def graphPrompt(input: str, metadata:{}):
         '       "edge": "relationship between the two concepts, node_1 and node_2 in one or two sentences"\n'
         "   }, {...}\n"
         "]"
-        "try to keep edges as short sumerized statements or single words"
         "only output the json, include no notes or introductory statements"
         "The entire output should be readable by a program that can interpret json"
     )
@@ -103,7 +102,8 @@ def graphPrompt(input: str, metadata:{}):
     top_p=0.95,
     stop_sequence="<|im_end|>",
     )
-    response=outputs[0]["generated_text"][-1]["content"]
+    out=outputs[0]["generated_text"][-1]["content"]
+    response="[\n"+out.split("[\n")[1].split("]")[0]+"]"
     print(response)
     try:
         result = json.loads(response)
